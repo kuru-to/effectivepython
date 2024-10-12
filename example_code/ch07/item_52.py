@@ -15,19 +15,15 @@
 # limitations under the License.
 
 # Reproduce book environment
-import random
-random.seed(1234)
-
-import logging
-from pprint import pprint
-from sys import stdout as STDOUT
-
 # Write all output to a temporary directory
 import atexit
 import gc
 import io
 import os
+import random
 import tempfile
+
+random.seed(1234)
 
 TEST_DIR = tempfile.TemporaryDirectory()
 atexit.register(TEST_DIR.cleanup)
@@ -47,16 +43,17 @@ atexit.register(close_open_files)
 
 
 # Example 1
-import subprocess
 # Enable these lines to make this example work on Windows
-# import os
-# os.environ['COMSPEC'] = 'powershell'
+import os
+import subprocess
+
+os.environ['COMSPEC'] = 'powershell'
 
 result = subprocess.run(
     ['echo', 'Hello from the child!'],
     capture_output=True,
     # Enable this line to make this example work on Windows
-    # shell=True,
+    shell=True,
     encoding='utf-8')
 
 result.check_returncode()  # No exception means it exited cleanly
@@ -65,8 +62,8 @@ print(result.stdout)
 
 # Example 2
 # Use this line instead to make this example work on Windows
-# proc = subprocess.Popen(['sleep', '1'], shell=True)
-proc = subprocess.Popen(['sleep', '1'])
+proc = subprocess.Popen(['sleep', '1'], shell=True)
+# proc = subprocess.Popen(['sleep', '1'])
 while proc.poll() is None:
     print('Working...')
     # Some time-consuming work here
@@ -99,6 +96,7 @@ print(f'Finished in {delta:.3} seconds')
 
 # Example 5
 import os
+
 # On Windows, after installing OpenSSL, you may need to
 # alias it in your PowerShell path with a command like:
 # $env:path = $env:path + ";C:\Program Files\OpenSSL-Win64\bin"

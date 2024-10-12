@@ -15,19 +15,18 @@
 # limitations under the License.
 
 # Reproduce book environment
-import random
-random.seed(1234)
-
-import logging
-from pprint import pprint
-from sys import stdout as STDOUT
-
 # Write all output to a temporary directory
 import atexit
 import gc
 import io
+import logging
 import os
+import random
 import tempfile
+from pprint import pprint
+from sys import stdout as STDOUT
+
+random.seed(1234)
 
 TEST_DIR = tempfile.TemporaryDirectory()
 atexit.register(TEST_DIR.cleanup)
